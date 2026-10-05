@@ -1,0 +1,26 @@
+# Maintainer: Bruno Enten <bruno@enten.me>
+_owner=brunoenten
+pkgname=plexi
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Lightweight, keyboard-driven Plex client for the terminal, themed by Omarchy"
+arch=('any')
+url="https://github.com/${_owner}/plexi"
+license=('MIT')
+depends=('python>=3.11' 'mpv')
+optdepends=(
+  'xdg-utils: open the Plex sign-in page in your browser'
+  'xdg-terminal-exec: launch from the app launcher (included with Omarchy)'
+  'ttf-nerd-fonts-symbols: library icons'
+)
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('c5c3814e6bdf06d5cc62caa7e78b80292795cebd7f4c73a13e814ea2545dc963')
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -Dm755 plexi "${pkgdir}/usr/bin/plexi"
+  install -Dm644 plexi.desktop "${pkgdir}/usr/share/applications/plexi.desktop"
+  install -Dm644 plexi.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/plexi.svg"
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
